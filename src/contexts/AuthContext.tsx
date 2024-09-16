@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import authService from "../services/authService";
 import cartService from "../services/cartService";
 import type { NewProductData, RegisterFormData } from "../@types/cart.types";
+import type { AuthData } from "../@types/account.types";
 
 const AuthContext = createContext<{
   registerUser: (
@@ -11,7 +12,7 @@ const AuthContext = createContext<{
   loginUser: (email: string, password: string) => Promise<void>;
   logoutUser: () => Promise<void>;
   loged: boolean;
-  authData: any;
+  authData: AuthData[];
   error: string;
   success: string;
   addUserProduct: (newProductData: NewProductData) => Promise<void>;
@@ -78,7 +79,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoged(true);
       localStorage.setItem("authData", JSON.stringify(newUserData));
       setSuccess("User created successfully!");
-    } catch (error) {
+    } catch (error: unknown) {
       if (error.response && error.response.status === 400) {
         setError("Un compte avec cet email existe déjà..");
         return { field: "email" };

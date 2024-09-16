@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { AxiosError } from "axios";
 
 const APP_API_URL = "https://omazon-backend.onrender.com";
 const axiosInstance = axios.create({ baseURL: APP_API_URL });
@@ -24,7 +25,8 @@ const cartService = {
         withCredentials: true,
       });
       return response.data;
-    } catch (error) {
+    } catch (err: unknown) {
+      const error = err as AxiosError;
       console.error("Error in addUserProductService:", error.response || error);
       throw error;
     }
