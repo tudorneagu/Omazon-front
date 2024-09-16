@@ -7,8 +7,7 @@ import SearchButton from "../../ui/Buttons/SearchButton";
 import SearchResults from "./SearchResults";
 
 function SearchBar() {
-	const { searchQuery } = useContext(ProductContext);
-
+	const { searchQuery } = useContext(ProductContext) || { searchQuery: "" }; 
 	return (
 		<form className="flex-grow flex h-9 ">
 			<SearchCategory />

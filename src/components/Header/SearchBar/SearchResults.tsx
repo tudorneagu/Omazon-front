@@ -3,13 +3,13 @@ import { useContext } from "react";
 import { ProductContext } from "../../../contexts/ProductContext";
 import normalizeString from "../../utils/NormaliseString";
 import type { IProduct } from "../../../@types/index.types";
-
+import type {ProductContextType} from '../../../contexts/ProductContext'
 function SearchResults() {
 	const { searchQuery, products, setSearchQuery, searchInput } =
-		useContext(ProductContext);
+		useContext<ProductContextType>(ProductContext);
 	console.log(searchQuery);
 	const searchResults: IProduct[] = (() => {
-		const normalizedQuery = normalizeString(searchQuery);
+		const normalizedQuery = normalizeString(searchQuery || ""); 
 		if (searchQuery) {
 			return (
 				products?.filter((product: IProduct) =>

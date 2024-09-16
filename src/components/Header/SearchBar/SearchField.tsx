@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { ProductContext } from "../../../contexts/ProductContext";
+import type {ProductContextType} from '../../../contexts/ProductContext'
 
 function SearchField() {
-	const { setSearchQuery, searchQuery, searchInput } =
-		useContext(ProductContext);
+	const { setSearchQuery, searchInput } =
+		useContext(ProductContext) as ProductContextType;
 	const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchQuery(e.target.value);
 	};

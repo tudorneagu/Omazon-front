@@ -7,10 +7,12 @@ function Header() {
 	useEffect(() => {
 		const handleScroll = () => {
 			const header = document.querySelector("header");
-			if (window.scrollY > 0) {
-				header.classList.add("dropShadow");
-			} else {
-				header.classList.remove("dropShadow");
+			if (header) { 
+				if (window.scrollY > 0) {
+					header.classList.add("dropShadow");
+				} else {
+					header.classList.remove("dropShadow");
+				}
 			}
 		};
 		window.addEventListener("scroll", handleScroll);

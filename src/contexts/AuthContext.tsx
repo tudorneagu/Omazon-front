@@ -169,6 +169,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const focusEmailInput = () => { };
+
   return (
     <AuthContext.Provider
       value={{
@@ -180,6 +182,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         error,
         success,
         addUserProduct,
+        focusEmailInput,
       }}>
       {children}
     </AuthContext.Provider>

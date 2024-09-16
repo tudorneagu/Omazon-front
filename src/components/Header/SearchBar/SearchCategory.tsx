@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ProductContext } from "../../../contexts/ProductContext";
-import { Link, useNavigate } from "react-router-dom";
+
 
 interface Category {
 	id: number;
@@ -13,10 +13,10 @@ interface ProductContextType {
 
 function SearchCategory() {
 	const { categories } = useContext<ProductContextType>(ProductContext);
-	const navigate = useNavigate();
-	const handleCategoryClick = (category: Category) => {
-		navigate(`/category/${category.title}/products`);
-	};
+
+	// const handleCategoryClick = (category: Category) => {
+	//	navigate(`/category/${category.title}/products`);
+	//};
 
 	return (
 		<select

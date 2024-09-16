@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import type { ICart } from "../../@types/index.types";
+import type { IProduct } from "../../@types/index.types";
+
+
 function Cart() {
-	const { cart }: ICart = useContext(CartContext);
+	const { cart }: { cart: IProduct[] } = useContext(CartContext); 
 	const navigate = useNavigate();
 
 	const handleCartClick = () => {
