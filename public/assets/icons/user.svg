@@ -1,0 +1,15 @@
+<svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Define the gradient -->
+    <linearGradient id="grad1" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#007185;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#fff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Apply the gradient to the first path -->
+  <path d="M6.67635 6.93333C8.59094 6.93333 10.143 5.38125 10.143 3.46667C10.143 1.55208 8.59094 0 6.67635 0C4.76176 0 3.20968 1.55208 3.20968 3.46667C3.20968 5.38125 4.76176 6.93333 6.67635 6.93333Z" fill="url(#grad1)"/>
+  
+  <!-- Apply the gradient to the second path -->
+  <path d="M13.8796 14.0597C13.8841 14.548 13.8907 15.2628 13.8811 16H0.016815C-0.00782349 15.3028 0.000273971 14.5696 0.00601681 14.0497C0.00798636 13.8714 0.00967904 13.7181 0.00967904 13.6C0.00967904 10.2127 3.11384 7.46667 6.94301 7.46667C10.7722 7.46667 13.8763 10.2127 13.8763 13.6C13.8763 13.7095 13.8778 13.867 13.8796 14.0597Z" fill="url(#grad1)"/>
+</svg>

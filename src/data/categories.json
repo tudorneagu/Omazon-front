@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Animalerie",
+    "slug": "animalerie",
+    "image": "animalerie.webp"
+  },
+  {
+    "id": 2,
+    "title": "Beauté et parfum",
+    "slug": "beaute-et-parfum",
+    "image": "beaute-et-parfum.webp"
+  },
+  {
+    "id": 3,
+    "title": "Bricolage",
+    "slug": "bricolage",
+    "image": "bricolage.webp"
+  },
+  {
+    "id": 4,
+    "title": "Chaussures",
+    "slug": "chaussures",
+    "image": "chaussures.webp"
+  },
+  {
+    "id": 5,
+    "title": "Jardin",
+    "slug": "jardin",
+    "image": "jardin.webp"
+  },
+  {
+    "id": 6,
+    "title": "Jeux et jouets",
+    "slug": "jeux",
+    "image": "jeux.webp"
+  },
+  {
+    "id": 7,
+    "title": "Jeux vidéos",
+    "slug": "jeux-videos",
+    "image": "jeux-videos.webp"
+  },
+  {
+    "id": 8,
+    "title": "Livres",
+    "slug": "livres",
+    "image": "livres.webp"
+  }
+]

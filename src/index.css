@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Amazon Ember", Arial, sans-serif;
+  }
+
+  @font-face {
+    font-family: Amazon Ember;
+    font-weight: 400;
+    src: url(/fonts/amazon-ember-400.woff2) format("woff2");
+  }
+
+  @font-face {
+    font-family: Amazon Ember;
+    font-weight: 500;
+    src: url(/fonts/amazon-ember-500.woff2) format("woff2");
+  }
+
+  @font-face {
+    font-family: Amazon Ember;
+    font-weight: 700;
+    src: url(/fonts/amazon-ember-700.woff2) format("woff2");
+  }
+
+  .heading-m {
+    @apply text-[26px] leading-[48px] font-bold;
+  }
+
+  .heading-s {
+    @apply text-[21px] leading-[24px] font-bold;
+  }
+
+  .text-m-regular {
+    @apply text-[16px] leading-[24px] font-normal;
+  }
+
+  .text-m-medium {
+    @apply text-[16px] leading-[24px] font-medium;
+  }
+
+  .text-s-regular {
+    @apply text-[13px] leading-[24px] font-normal;
+  }
+
+  .text-s-bold {
+    @apply text-[13px] leading-[24px] font-bold;
+  }
+
+  .text-xs-regular {
+    @apply text-[10px] leading-[24px] font-normal;
+  }
+
+  .menu-m {
+    @apply text-[13px] leading-[24px] font-bold;
+  }
+
+  .menu-s {
+    @apply text-[10px] font-normal;
+  }
+
+  .tag {
+    @apply relative top-0 left-0 text-main-lowest text-s-regular px-3
+  }
+
+  
+  .tag-choice {
+    background-color: #232f3e;
+  }
+  
+  .tag-new {
+    background-color: #6f7373;
+  }
+  
+  .tag-flash {
+    background-color: #cc0c39;
+  }
+  
+  .tag-best-seller {
+    background-color: #ff9900;
+  }
+  
+  .dropShadow {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.13);
+  }
+
+
+}
+@layer utilities {
+  .dropShadow {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.13);
+  }
+
+  .outline-default {
+    box-shadow: 
+      0 0 0 3px #C8F3FA,  
+      inset 0 0 0 2px #fff;
+  }
+  
+  .outline-error {
+    box-shadow: 
+      0 0 0 3px #FAD0C8,  
+      inset 0 0 0 2px #fff;
+  }
+}
