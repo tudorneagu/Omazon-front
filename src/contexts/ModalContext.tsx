@@ -1,71 +1,85 @@
 import {
-	createContext,
-	useState,
-	useEffect,
-	useRef,
-	type ReactNode,
+  createContext,
+  useState,
+  useEffect,
+  useRef,
+  type ReactNode,
+  useCallback,
 } from "react";
 import type { ModalsState } from "../@types/index.types";
-const ModalContext = createContext();
+
+
+const ModalContext = createContext<{
+  closeModal: (modalName: string) => void;
+  openModal: (modalName: string) => void;
+  stopPropagation: (event: React.MouseEvent<HTMLDivElement>) => void;
+  modals: ModalsState;
+  emailRef: React.RefObject<HTMLInputElement>;
+}>({
+  closeModal: () => {},
+  openModal: () => {},
+  stopPropagation: () => {},
+  modals: {},
+  emailRef: { current: null },
+});
 
 function ModalProvider({ children }: { children: ReactNode }) {
-	const [modals, setModals] = useState<ModalsState>({});
-	const emailRef = useRef<HTMLInputElement>(null);
-	const openModal = (modalName: string) =>
-		setModals({ ...modals, [modalName]: true });
+  const [modals, setModals] = useState<ModalsState>({});
+  const emailRef = useRef<HTMLInputElement>(null);
+  const openModal = (modalName: string) =>
+    setModals({ ...modals, [modalName]: true });
 
-	const closeModal = (modalName: string) => {
-		setModals({ ...modals, [modalName]: false });
-	};
+  const closeModal = (modalName: string) => {
+    setModals({ ...modals, [modalName]: false });
+  };
 
-	const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
-		event.stopPropagation();
-	};
+  const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+  };
 
-	useEffect(() => {
-		const handleKeyUp = (event: KeyboardEvent) => {
-			if (event.key === "Escape") {
-				setModals((modals) => {
-					const newModals = { ...modals };
-					for (const key of Object.keys(newModals)) {
-						newModals[key] = false;
-					}
-					return newModals;
-				});
-			}
-		};
-		window.addEventListener("keyup", handleKeyUp);
+  useEffect(() => {
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setModals((modals) => {
+          const newModals = { ...modals };
+          for (const key of Object.keys(newModals)) {
+            newModals[key] = false;
+          }
+          return newModals;
+        });
+      }
+    };
+    window.addEventListener("keyup", handleKeyUp);
 
-		return () => {
-			window.removeEventListener("keyup", handleKeyUp);
-		};
-	}, [setModals]);
+    return () => {
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, [setModals]);
 
-	const focusEmailInput = () => {
-		if (emailRef.current) {
-			emailRef.current.focus();
-		}
-	};
+  const focusEmailInput = useCallback(() => {
+    if (emailRef.current) {
+      emailRef.current.focus();
+    }
+  }, []);
 
-	useEffect(() => {
-		if (modals.login) {
-			focusEmailInput();
-		}
-	}, [emailRef]);
+  useEffect(() => {
+    if (modals.login) {
+      focusEmailInput();
+    }
+  }, [modals.login]);
 
-	return (
-		<ModalContext.Provider
-			value={{
-				closeModal,
-				openModal,
-				stopPropagation,
-				modals,
-				emailRef,
-			}}
-		>
-			{children}
-		</ModalContext.Provider>
-	);
+  return (
+    <ModalContext.Provider
+      value={{
+        closeModal,
+        openModal,
+        stopPropagation,
+        modals,
+        emailRef,
+      }}>
+      {children}
+    </ModalContext.Provider>
+  );
 }
 
 export { ModalContext, ModalProvider };

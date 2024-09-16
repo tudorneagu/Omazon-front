@@ -9,9 +9,7 @@ function AccountProducts() {
 	const { openModal } = useContext(ModalContext);
 	const { userProducts } = useContext(UserContext) as UserContextType; //
 	console.log(userProducts);
-	const products = userProducts
-		.map((userProduct) => userProduct.products)
-		.flat();
+	const products = userProducts.flatMap((userProduct) => userProduct.products);
 
 	console.log(products);
 	useEffect(() => {
@@ -51,7 +49,7 @@ function AccountProducts() {
 						<UserProductCard product={product} key={product.id} />
 					))}
 				</main>
-				<footer className="flex justify-end gap-2 pt-2 pb-4"></footer>
+				<footer className="flex justify-end gap-2 pt-2 pb-4" /> 
 			</section>
 		</div>
 	);

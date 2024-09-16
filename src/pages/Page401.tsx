@@ -5,7 +5,7 @@ function Page401() {
 	const { openModal } = useContext(ModalContext);
 	useEffect(() => {
 		openModal("login");
-	}, []);
+	}, [openModal]); 
 	return (
 		<div className="min-h-[400px] bg-white">
 			<h1 className="heading-m"> Error 401</h1>

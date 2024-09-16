@@ -1,8 +1,24 @@
 import { createContext, useEffect, useState } from "react";
 import type { IProduct } from "../@types/index.types";
-import cartService from "../services/cartService";
-
-const CartContext = createContext();
+import cartService from "../services/cartService"; 
+import type { NewProductData } from "../@types/cart.types";
+const CartContext = createContext<{
+	cart: IProduct[];
+	updateQuantityProduct: (id: number, quantity: number) => void;
+	handleAdd: (product: IProduct) => void;
+	handleRemove: (product: IProduct) => void;
+	addUserProduct: (newProductData: NewProductData) => Promise<void>;
+	success: string;
+	error: string;
+}>({
+	cart: [],
+	updateQuantityProduct: () => {},
+	handleAdd: () => {},
+	handleRemove: () => {},
+	addUserProduct: async () => {},
+	success: "",
+	error: "",
+});
 
 function CartProvider({ children }: { children: React.ReactNode }) {
 	const [error, setError] = useState("");
@@ -59,19 +75,6 @@ function CartProvider({ children }: { children: React.ReactNode }) {
 		});
 	};
 
-	// User product management
-
-	interface NewProductData {
-		title: string;
-		image: string;
-		price: number;
-		category_id: number;
-		tag_id?: number;
-		inStock: boolean;
-		description: string;
-		user_id: number;
-	}
-
 	const addUserProduct = async (newProductData: NewProductData) => {
 		const {
 			title,
@@ -108,7 +111,7 @@ function CartProvider({ children }: { children: React.ReactNode }) {
 					return setError(validation.message);
 				}
 			}
-			const newProduct = await cartService.addUserProductService({
+			await cartService.addUserProductService({
 				title,
 				image,
 				price,

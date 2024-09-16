@@ -1,14 +1,17 @@
 import { useState, useEffect, createContext } from "react";
 import productService from "../services/productService";
 
-const UserContext = createContext(undefined);
+const UserContext = createContext<{
+	userProducts: { id: number }[]; 
+	handleRemoveUserProduct: (productId: number) => Promise<void>; 
+} | undefined>(undefined);
 
 interface UserProviderProps {
 	children: React.ReactNode;
 }
 
 function UserProvider({ children }: UserProviderProps) {
-	const [userProducts, setUserProducts] = useState([]);
+	const [userProducts, setUserProducts] = useState<{ id: number }[]>([]); 
 
 	useEffect(() => {
 		const getAllUserProducts = async () => {
@@ -32,7 +35,7 @@ function UserProvider({ children }: UserProviderProps) {
 		getAllUserProducts();
 	}, []);
 
-	const handleRemoveUserProduct = async (productId) => {
+	const handleRemoveUserProduct = async (productId: number) => { 
 		const authData = localStorage.getItem("authData");
 		console.log(productId);
 		if (authData) {
@@ -40,7 +43,7 @@ function UserProvider({ children }: UserProviderProps) {
 			const userId = parsedAuthData.user.id;
 			console.log(userId);
 			try {
-				const data = await productService.deleteUserProduct(userId, productId);
+				await productService.deleteUserProduct(userId, productId);
 				setUserProducts((prevProducts) =>
 					prevProducts.filter((product) => product.id !== productId),
 				);

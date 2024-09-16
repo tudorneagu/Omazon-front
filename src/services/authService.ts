@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+import type { RegisterParams } from '../@types/account.types';
 const APP_API_URL = 'https://omazon-backend.onrender.com';
 const axiosInstance = axios.create({ baseURL: APP_API_URL });
 
 const authService = {
-  register: async ({ firstname, lastname, email, password, account_type }) => {
+  register: async (params: RegisterParams) => { 
+    const { firstname, lastname, email, password, account_type } = params; 
     const response = await axiosInstance.post('/register', {
       firstname,
       lastname,

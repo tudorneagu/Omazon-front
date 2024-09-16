@@ -3,9 +3,10 @@ import { useContext } from 'react';
 import { ModalContext } from '../contexts/ModalContext';
 import { AuthContext } from '../contexts/AuthContext';
 import { useState } from 'react';
+import type { AuthContextType } from '../types/AuthContextTypes'; 
 
 function RegisterPage() {
-  const { registerUser, error, success } = useContext(AuthContext);
+  const { registerUser, error, success } = useContext(AuthContext) as AuthContextType;
   const { openModal } = useContext(ModalContext);
   const [formData, setFormData] = useState({
     firstname: '',
@@ -17,7 +18,7 @@ function RegisterPage() {
   });
   const [errorField, setErrorField] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -45,7 +46,7 @@ function RegisterPage() {
               Prénom
             </label>
             <input
-              className={`border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md invalid:border-danger-medium pl-2`}
+              className="border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md invalid:border-danger-medium pl-2"
               type="text"
               name="firstname"
               placeholder="Théo"
@@ -57,7 +58,7 @@ function RegisterPage() {
               Nom
             </label>
             <input
-              className={`border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md invalid:border-danger-medium pl-2`}
+              className="border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md invalid:border-danger-medium pl-2"
               type="text"
               name="lastname"
               placeholder="Boulanger"

@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ITag } from "../@types/index.types";
+
 
 const API_BASE_URL = "https://omazon-backend.onrender.com";
 
