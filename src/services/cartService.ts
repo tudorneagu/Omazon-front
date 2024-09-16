@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const APP_API_URL = 'http://localhost:3000';
+const APP_API_URL = "https://omazon-backend.onrender.com";
 const axiosInstance = axios.create({ baseURL: APP_API_URL });
 
 // je veux faire une demande API pour recuperer les produits de l'utilisateur
@@ -20,12 +20,12 @@ const cartService = {
     user_id: number;
   }) => {
     try {
-      const response = await axiosInstance.post('/product/add', productData, {
+      const response = await axiosInstance.post("/product/add", productData, {
         withCredentials: true,
       });
       return response.data;
     } catch (error) {
-      console.error('Error in addUserProductService:', error.response || error);
+      console.error("Error in addUserProductService:", error.response || error);
       throw error;
     }
   },

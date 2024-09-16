@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const APP_API_URL = 'http://localhost:3000';
+const APP_API_URL = 'https://omazon-backend.onrender.com';
 const axiosInstance = axios.create({ baseURL: APP_API_URL });
 
 const authService = {
