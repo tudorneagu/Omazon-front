@@ -54,7 +54,7 @@ function ModalProvider({ children }: { children: ReactNode }) {
     return () => {
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [setModals]);
+  }, []);
 
   const focusEmailInput = useCallback(() => {
     if (emailRef.current) {
@@ -66,7 +66,7 @@ function ModalProvider({ children }: { children: ReactNode }) {
     if (modals.login) {
       focusEmailInput();
     }
-  }, [modals.login]);
+  }, [modals.login, focusEmailInput]);
 
   return (
     <ModalContext.Provider

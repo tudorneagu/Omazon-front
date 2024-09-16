@@ -13,7 +13,7 @@ const cartService = {
   addUserProductService: async (productData: {
     title: string;
     price: number;
-    image: string;
+    url: string;
     description: string;
     inStock: boolean;
     category_id: number;

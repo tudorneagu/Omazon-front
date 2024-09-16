@@ -13,3 +13,6 @@ export interface AuthData {
   password: string;
   account_type: string;
 }
+export interface Loged {
+  loged: boolean;
+}

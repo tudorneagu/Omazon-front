@@ -5,6 +5,7 @@ import cartService from "../services/cartService";
 import type { NewProductData, RegisterFormData } from "../@types/cart.types";
 import type { AuthData } from "../@types/account.types";
 
+
 const AuthContext = createContext<{
   registerUser: (
     formData: RegisterFormData
@@ -21,7 +22,7 @@ const AuthContext = createContext<{
 function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loginForm, setLoginForm] = useState(true);
   const [loged, setLoged] = useState(false);
-  const [authData, setAuthData] = useState(null);
+  const [authData, setAuthData] = useState<AuthData[] | null>(null); 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -80,7 +81,9 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("authData", JSON.stringify(newUserData));
       setSuccess("User created successfully!");
     } catch (error: unknown) {
-      if (error.response && error.response.status === 400) {
+      if (error instanceof Error) {
+        setError("An unexpected error occurred.");
+      } else if (error && (error as { response?: { status?: number } }).response?.status === 400) {
         setError("Un compte avec cet email existe déjà..");
         return { field: "email" };
       }
@@ -153,9 +156,10 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       await cartService.addUserProductService({
         title,
         url,
+        description,
         price,
         category_id,
-        tag_id,
+        tag_id: tag_id ?? 0, 
         user_id,
         inStock,
       });

@@ -117,8 +117,9 @@ function CartProvider({ children }: { children: React.ReactNode }) {
         title,
         url,
         price,
+		description,
         category_id,
-        tag_id,
+        tag_id: tag_id || 0,
         user_id,
         inStock,
       });
