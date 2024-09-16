@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import { ModalContext } from '../contexts/ModalContext';
 import { AuthContext } from '../contexts/AuthContext';
 import { useState } from 'react';
-import type { AuthContextType } from '../types/AuthContextTypes'; 
+import type { AuthContextType } from '../contexts/AuthContext'; 
 
 function RegisterPage() {
-  const { registerUser, error, success } = useContext(AuthContext) as AuthContextType;
+  const { registerUser, error, success } = useContext<AuthContextType>(AuthContext)
   const { openModal } = useContext(ModalContext);
   const [formData, setFormData] = useState({
     firstname: '',
@@ -26,7 +26,7 @@ function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const result = await registerUser(formData);
-    if (result && result.field) {
+    if (result?.field) { 
       setErrorField(result.field);
     } else {
       setErrorField('');

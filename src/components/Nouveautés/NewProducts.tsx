@@ -2,10 +2,11 @@ import ProductCard from "../Products/ProductCard";
 
 import { useContext } from "react";
 import { ProductContext } from "../../contexts/ProductContext";
+import type { ProductContextType } from "../../contexts/ProductContext"; 
 import type { IProduct } from "../../@types/index.types";
 
 function NewProducts() {
-	const { products } = useContext(ProductContext);
+	const { products } = useContext<ProductContextType>(ProductContext);
 	return (
 		<div className="flex flex-col gap-6">
 			<h1 className="heading-m">Nouveautés</h1>

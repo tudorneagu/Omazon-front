@@ -3,7 +3,7 @@ import Button from "../Buttons/Button";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useContext, useState } from "react";
 import { ModalContext } from "../../../contexts/ModalContext";
-import type { ModalContextType } from "../../../@types/index.types";
+
 
 function LoginForm() {
 	const { emailRef, loginUser, error } = useContext(AuthContext);
@@ -12,7 +12,7 @@ function LoginForm() {
 
 	const { closeModal, stopPropagation } = useContext(
 		ModalContext,
-	) as ModalContextType;
+	) 
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -20,9 +20,10 @@ function LoginForm() {
 	};
 
 	return (
-		<div className="fixed inset-0 z-50 " onClick={() => closeModal("login")}>
+		<div className="fixed inset-0 z-50 " onClick={() => closeModal("login")} onKeyUp={() => closeModal("login")}>
 			<div
 				onClick={stopPropagation}
+				onKeyDown={(e) => { if (e.key === 'Enter') stopPropagation(e); }} 
 				className="absolute  top-16 right-2
           bg-white drop-shadow-md rounded-sm border border-main-lower max-w-screen-sm p-6 flex flex-col items-center"
 			>

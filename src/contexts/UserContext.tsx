@@ -1,10 +1,13 @@
 import { useState, useEffect, createContext } from "react";
 import productService from "../services/productService";
 
-const UserContext = createContext<{
-	userProducts: { id: number }[]; 
-	handleRemoveUserProduct: (productId: number) => Promise<void>; 
-} | undefined>(undefined);
+
+type UserContextType = {
+	userProducts: { id: number }[];
+	handleRemoveUserProduct: (productId: number) => Promise<void>;
+};
+
+const UserContext = createContext<UserContextType | undefined>(undefined); // Use the new type
 
 interface UserProviderProps {
 	children: React.ReactNode;

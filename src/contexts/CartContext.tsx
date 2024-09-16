@@ -2,7 +2,9 @@ import { createContext, useEffect, useState } from "react";
 import type { IProduct } from "../@types/index.types";
 import cartService from "../services/cartService";
 import type { NewProductData } from "../@types/cart.types";
-const CartContext = createContext<{
+
+
+export type CartContextType = {
   cart: IProduct[];
   updateQuantityProduct: (id: string, quantity: number) => void;
   handleAdd: (product: IProduct) => void;
@@ -10,7 +12,9 @@ const CartContext = createContext<{
   addUserProduct: (newProductData: NewProductData) => Promise<void>;
   success: string;
   error: string;
-}>({
+};
+
+const CartContext = createContext<CartContextType>({
   cart: [],
   updateQuantityProduct: () => {},
   handleAdd: () => {},

@@ -6,25 +6,25 @@ import type { NewProductData, RegisterFormData } from "../@types/cart.types";
 import type { AuthData } from "../@types/account.types";
 
 
-const AuthContext = createContext<{
-  registerUser: (
-    formData: RegisterFormData
-  ) => Promise<{ field: string } | undefined>;
-  loginUser: (email: string, password: string) => Promise<void>;
-  logoutUser: () => Promise<void>;
-  loged: boolean;
-  authData: AuthData[];
-  error: string;
-  success: string;
-  addUserProduct: (newProductData: NewProductData) => Promise<void>;
-} | null>(null);
+export type AuthContextType = {
+    registerUser: (formData: RegisterFormData) => Promise<{ field: string; } | undefined>;
+    loginUser: (email: string, password: string) => Promise<void>;
+    logoutUser: () => Promise<void>;
+    loged: boolean;
+    authData: AuthData[];
+    error?: string; 
+    success: string;
+    addUserProduct: (newProductData: NewProductData) => Promise<void>;
+    focusEmailInput: () => void;
+} | null;
 
+ const AuthContext = createContext<AuthContextType | null>(null);
 function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [loginForm, setLoginForm] = useState(true);
-  const [loged, setLoged] = useState(false);
-  const [authData, setAuthData] = useState<AuthData[] | null>(null); 
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+    const [loginForm, setLoginForm] = useState(true);
+    const [loged, setLoged] = useState(false);
+    const [authData, setAuthData] = useState<AuthData[]>([]); 
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
   const navigate = useNavigate();
 
@@ -39,7 +39,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (error) {
         console.log("Authentication check failed:", error);
-        setAuthData(null);
+        setAuthData([]);
         setLoged(false);
         localStorage.removeItem("authData");
       }
@@ -111,7 +111,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     setError("");
     try {
       await authService.logout();
-      setAuthData(null);
+      setAuthData([]); 
       localStorage.removeItem("authData");
       setLoged(false);
       navigate("/");

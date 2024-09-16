@@ -4,18 +4,18 @@ import { ProductContext } from "../../../contexts/ProductContext";
 import type { ITag } from "../../../@types/index.types";
 import Button from "../Buttons/Button";
 
-import type { ModalContextType } from "../../../contexts/ModalContext";
+import  type { ModalContextType } from "../../../contexts/ModalContext";
 import { useState } from "react";
 import { CartContext } from "../../../contexts/CartContext";
 import type { CartContextType } from "../../../contexts/CartContext";
 
 function AddProduct() {
-	const { closeModal, stopPropagation } = useContext(
+	const { closeModal, stopPropagation } = useContext<ModalContextType>(
 		ModalContext,
-	) as ModalContextType;
-	const { addUserProduct, error, success } = useContext(
+	) 
+	const { addUserProduct, error, success } = useContext<CartContextType>(
 		CartContext,
-	) as CartContextType;
+	) 
 	const productContext = useContext(ProductContext);
 	const categories = productContext?.categories;
 	const tags = productContext?.tags;
@@ -26,16 +26,16 @@ function AddProduct() {
 
 	const [newProductData, setNewProductData] = useState({
 		title: "",
-		image: "",
-		price: Number,
+		url: "",
+		price: 0, 
 		description: "",
 		inStock: true,
-		category_id: Number,
-		tag_id: Number,
+		category_id: 0, 
+		tag_id: 0, 
 		user_id: userId,
 	});
 
-	const handleChange = (e) => {
+	const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target;
 		setNewProductData({
 			...newProductData,
@@ -43,7 +43,7 @@ function AddProduct() {
 		});
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		console.log("Form submitted", newProductData);
 
@@ -59,6 +59,8 @@ function AddProduct() {
 		<div
 			className="fixed top-0 left-0 flex justify-center items-center bg-black/70 z-20 w-full h-full"
 			onClick={() => closeModal("addProduct")}
+			onKeyUp={(e) => e.key === 'Enter' && closeModal("addProduct")} // Added keyboard event
+	
 		>
 			{!user ? (
 				<div className="flex max-w-2xl bg-white w-full p-10  justify-between rounded-lg items-center ">
@@ -70,6 +72,8 @@ function AddProduct() {
 						src="/assets/icons/close.svg"
 						alt="close button"
 						onClick={() => closeModal("addProduct")}
+						onKeyUp={(e) => e.key === 'Enter' && closeModal("addProduct")} 
+					
 					/>
 				</div>
 			) : userAccountType !== "entreprise" ? (
@@ -82,12 +86,19 @@ function AddProduct() {
 						src="/assets/icons/close.svg"
 						alt="close button"
 						onClick={() => closeModal("addProduct")}
+						onKeyUp={(e) => e.key === 'Enter' && closeModal("addProduct")} 
 					/>
 				</div>
 			) : (
 				<div
 					className="max-w-2xl bg-white w-full rounded-lg "
 					onClick={stopPropagation}
+					onKeyUp={(e) => {
+						if (e.key === 'Enter' && e instanceof KeyboardEvent) {
+							stopPropagation(e as unknown as React.MouseEvent<HTMLDivElement>);
+						}
+					}}
+				
 				>
 					<header className="bg-main-low flex items-center rounded-t-lg border-b-2 border-main-medium/40 justify-between py-4 px-6 ">
 						<h1 className="text-lg font-bold">Ajouter un produit</h1>
@@ -96,6 +107,8 @@ function AddProduct() {
 							src="/assets/icons/close.svg"
 							alt="close button"
 							onClick={() => closeModal("addProduct")}
+							onKeyUp={(e) => e.key === 'Enter' && closeModal("addProduct")} 
+							
 						/>
 					</header>
 					<form onSubmit={handleSubmit} className="p-6 flex flex-col gap-3">
@@ -154,7 +167,7 @@ function AddProduct() {
 									className="text-main-medium"
 									type="radio"
 									name="inStock"
-									value={true}
+									value="true"
 								/>
 								Disponible
 							</label>
@@ -163,7 +176,7 @@ function AddProduct() {
 									className="text-main-medium"
 									type="radio"
 									name="inStock"
-									value={false}
+									value="false"
 								/>
 								En rupture de stock
 							</label>
@@ -184,7 +197,7 @@ function AddProduct() {
 									<option selected disabled>
 										Choisissez une catégorie ...
 									</option>
-									{categories.map((category) => (
+									{categories?.map((category) => ( 
 										<option key={category.id} value={category.id}>
 											{category.title}
 										</option>
@@ -203,7 +216,7 @@ function AddProduct() {
 									<option selected disabled>
 										Choisissez un tag
 									</option>
-									{tags.map((tag: ITag) => (
+									{tags?.map((tag: ITag) => ( 
 										<option key={tag.id} value={tag.id}>
 											{tag.text}
 										</option>

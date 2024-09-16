@@ -19,11 +19,11 @@ export interface ProductContextType {
   searchInput: React.RefObject<HTMLInputElement>;
 }
 
-const ProductContext = createContext<ProductContextType | undefined>(undefined);
+const ProductContext = createContext<ProductContextType>();
 
 function ProductProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
   const [tags, setTags] = useState([]);
   const [searchQuery, setSearchQuery] = useState<string | null>("");
   const searchInput = useRef(null);
