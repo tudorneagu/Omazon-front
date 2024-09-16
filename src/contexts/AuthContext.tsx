@@ -5,7 +5,6 @@ import cartService from "../services/cartService";
 import type { NewProductData, RegisterFormData } from "../@types/cart.types";
 import type { AuthData } from "../@types/account.types";
 
-
 export type AuthContextType = {
     registerUser: (formData: RegisterFormData) => Promise<{ field: string; } | undefined>;
     loginUser: (email: string, password: string) => Promise<void>;
@@ -18,13 +17,14 @@ export type AuthContextType = {
     focusEmailInput: () => void;
 } | null;
 
- const AuthContext = createContext<AuthContextType | null>(null);
-function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [loginForm, setLoginForm] = useState(true);
-    const [loged, setLoged] = useState(false);
-    const [authData, setAuthData] = useState<AuthData[]>([]); 
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
+const AuthContext = createContext<AuthContextType>(); 
+
+const AuthProvider = ({ children }) => { 
+  const [loginForm, setLoginForm] = useState(true);
+  const [loged, setLoged] = useState(false);
+  const [authData, setAuthData] = useState<AuthData[]>([]); 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const navigate = useNavigate();
 
@@ -187,6 +187,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       {children}
     </AuthContext.Provider>
   );
-}
 
+}
 export { AuthProvider, AuthContext };

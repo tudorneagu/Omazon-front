@@ -38,7 +38,4 @@ export type ModalContextType = {
   onClose: () => void;
 };
 
-export type ModalsState = {
-  [key: string]: boolean;
-  login?: boolean;
-};
+

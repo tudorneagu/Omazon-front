@@ -15,15 +15,10 @@ export type ModalContextType = {
   stopPropagation: (event: React.MouseEvent<HTMLDivElement>) => void;
   modals: ModalsState;
   emailRef: React.RefObject<HTMLInputElement>;
+  
 };
 
-const ModalContext = createContext<ModalContextType>({
-  closeModal: () => {},
-  openModal: () => {},
-  stopPropagation: () => {},
-  modals: {},
-  emailRef: { current: null },
-});
+const ModalContext = createContext<ModalContextType>()
 
 function ModalProvider({ children }: { children: ReactNode }) {
   const [modals, setModals] = useState<ModalsState>({});

@@ -12,7 +12,12 @@ export interface AuthData {
   email: string;
   password: string;
   account_type: string;
+  user: {
+    id: number;
+
+  };
 }
+
 export interface Loged {
   loged: boolean;
 }

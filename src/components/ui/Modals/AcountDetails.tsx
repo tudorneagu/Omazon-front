@@ -1,15 +1,19 @@
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useContext } from "react";
 import { ModalContext } from "../../../contexts/ModalContext";
-import type { ModalContextType } from "../../../@types/index.types";
+import type { ModalContextType } from "../../../contexts/ModalContext";
 import { useNavigate } from "react-router-dom";
 
+import type { AuthData } from "../../../@types/account.types";
+
 function LoginForm() {
+type LocalAuthContext{
+	logoutUser: () => Promise<void>;
+	authData: AuthData
+}
 	const navigate = useNavigate();
 	const { logoutUser, authData } = useContext(AuthContext);
-	const { closeModal, stopPropagation } = useContext(
-		ModalContext,
-	) as ModalContextType;
+	const { closeModal, stopPropagation } = useContext<ModalContextType>(ModalContext);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -17,7 +21,7 @@ function LoginForm() {
 	};
 
 	const handleAccountDetails = () => {
-		navigate(`/accountDetails`);
+		navigate('/accountDetails');
 	};
 
 	const { firstname, lastname } = authData.user;
@@ -26,9 +30,11 @@ function LoginForm() {
 		<div
 			className="fixed inset-0 z-50 "
 			onClick={() => closeModal("accountDetails")}
+			onKeyDown={(e) => e.key === 'Enter' && closeModal("accountDetails")}
 		>
 			<div
-				onClick={stopPropagation}
+				onClick={stopPropagation} 
+				onKeyDown={(e) => { if (e.key === 'Enter') stopPropagation(e); }} 
 				className="absolute top-16 right-4 z-60 bg-white drop-shadow-md rounded-sm border border-main-lower max-w-screen-sm p-6  flex flex-col items-center py-6"
 			>
 				<div className=" absolute z-10  -top-2 left-1/2 bg-white rotate-45 h-4 w-4 " />
@@ -66,7 +72,7 @@ function LoginForm() {
 				<button
 					type="button"
 					onClick={handleSubmit}
-					to="/"
+	
 					className="mt-4 text-s-regular text-main-high active:text-info-higher  active:font-semibold hover:text-button-active-background"
 				>
 					Deconnexion
