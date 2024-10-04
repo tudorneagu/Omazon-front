@@ -22,9 +22,7 @@ function LoginForm() {
       onClick={() => closeModal("login")}
       onKeyUp={() => closeModal("login")}>
       <div
-        onClick={(e) => {
-          e.preventDefault();
-        }}
+        onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
           if (e.key === "Enter") e.stopPropagation();
         }}
