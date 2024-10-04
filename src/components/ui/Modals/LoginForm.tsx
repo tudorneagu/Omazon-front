@@ -16,18 +16,29 @@ function LoginForm() {
     loginUser(email, password);
   };
 
+  const handleInteraction = (
+    e: React.MouseEvent | React.KeyboardEvent,
+    action: () => void
+  ) => {
+    if (
+      e.type === "click" ||
+      (e.type === "keyup" && (e as React.KeyboardEvent).key === "Enter")
+    ) {
+      action();
+    }
+  };
+
   return (
     <div
-      className="fixed inset-0 z-50 "
-      onClick={() => closeModal("login")}
-      onKeyUp={() => closeModal("login")}>
+      className="fixed inset-0 z-50"
+      onClick={(e) => handleInteraction(e, () => closeModal("login"))}
+      onKeyUp={(e) => handleInteraction(e, () => closeModal("login"))}>
       <div
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
           if (e.key === "Enter") e.stopPropagation();
         }}
-        className="absolute  top-16 right-2
-          bg-white drop-shadow-md rounded-sm border border-main-lower max-w-screen-sm p-6 flex flex-col items-center">
+        className="absolute top-16 right-2 bg-white drop-shadow-md rounded-sm border border-main-lower max-w-screen-sm p-6 flex flex-col items-center">
         <div className="absolute z-10 -top-2 left-1/2 bg-main-lowest rotate-45 h-4 w-4 transform -translate-x-1/2" />
 
         <form
@@ -39,7 +50,6 @@ function LoginForm() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              // ref={emailRef}
               placeholder="nicole.martin@mail.fr"
               className="border p-2 rounded-lg border-brand-grey text-brand-grey text-m-regular"
             />
@@ -58,9 +68,10 @@ function LoginForm() {
           <div>
             <Button type="submit" content="Identifiez-vous" px="px-16" />
 
-            {error && <p className="text-red-500 ptext-xs">{error}</p>}
+            {error && <p className="text-red-500 text-xs">{error}</p>}
           </div>
         </form>
+
         <div className="text-xs-regular flex gap-1 mt-4">
           <p>Nouveau client?</p>{" "}
           <Link
