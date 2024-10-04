@@ -47,7 +47,7 @@ function UserProductCard({ product }: { product: IProduct }) {
         <article className="flex text-s-regular text-info-medium">
           <button
             type="button"
-            onClick={() => handleRemoveUserProduct(productId)}>
+            onClick={() => handleRemoveUserProduct(Number(productId))}>
             Supprimer le produit
           </button>
           <button

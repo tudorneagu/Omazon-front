@@ -9,7 +9,7 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { closeModal, stopPropagation } = useContext(ModalContext);
+  const { closeModal } = useContext(ModalContext);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +22,9 @@ function LoginForm() {
       onClick={() => closeModal("login")}
       onKeyUp={() => closeModal("login")}>
       <div
-        onClick={stopPropagation}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
         onKeyDown={(e) => {
           if (e.key === "Enter") e.stopPropagation();
         }}

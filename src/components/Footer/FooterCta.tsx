@@ -1,10 +1,10 @@
-import { AuthContext } from "../../contexts/ModalContext";
+import { ModalContext } from "../../contexts/ModalContext";
 import Logo from "../Header/Logo";
 import Button from "../ui/Buttons/Button";
 import { useContext } from "react";
 
 function FooterCta() {
-  const { openModal } = useContext(AuthContext);
+  const { openModal } = useContext(ModalContext);
   return (
     <div className="flex flex-col justify-center items-center bg-main-high ">
       <div className="flex flex-col justify-center items-center gap-6 text-main-lowest py-12">

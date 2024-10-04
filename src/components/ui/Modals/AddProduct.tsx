@@ -6,13 +6,13 @@ import Button from "../Buttons/Button";
 
 import type { ITag } from "../../../@types/index.types";
 import {
-  AuthContext,
-  type AuthContextType,
+  ModalContext,
+  type ModalContextType,
 } from "../../../contexts/ModalContext";
 import type { CartContextType } from "../../../contexts/CartContext";
 
 function AddProduct() {
-  const { closeModal } = useContext<AuthContextType>(AuthContext);
+  const { closeModal } = useContext<ModalContextType>(ModalContext);
   const { addUserProduct, error, success } =
     useContext<CartContextType>(CartContext);
   const productContext = useContext(ProductContext);

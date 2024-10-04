@@ -7,8 +7,7 @@ import { useNavigate } from "react-router-dom";
 function LoginForm() {
   const navigate = useNavigate();
   const { logoutUser, authData } = useContext(AuthContext);
-  const { closeModal, stopPropagation } =
-    useContext<ModalContextType>(ModalContext);
+  const { closeModal } = useContext<ModalContextType>(ModalContext);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +26,9 @@ function LoginForm() {
       onClick={() => closeModal("accountDetails")}
       onKeyDown={(e) => e.key === "Enter" && closeModal("accountDetails")}>
       <div
-        onClick={stopPropagation}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
         onKeyDown={(e: React.KeyboardEvent) => {
           if (e.key === "Enter") e.stopPropagation;
         }}
