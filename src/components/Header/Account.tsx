@@ -1,13 +1,12 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
-import type {AuthContextType} from '../../contexts/AuthContext'
-import { ModalContext } from '../../contexts/ModalContext';
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
+import type { AuthContextType } from "../../contexts/AuthContext";
 
 function Account() {
   const { loged, focusEmailInput } = useContext<AuthContextType>(AuthContext);
-  const { openModal } = useContext(ModalContext);
+  const { openModal } = useContext(AuthContext);
   const handleInteraction = () => {
-    openModal('login');
+    openModal("login");
     focusEmailInput();
   };
 
@@ -17,15 +16,14 @@ function Account() {
         type="button"
         className="text-main-lowest menu-s cursor-pointer"
         onClick={() =>
-          loged ? openModal('accountDetails') : openModal('login')
+          loged ? openModal("accountDetails") : openModal("login")
         }
         onKeyDown={(e) => {
-          console.log('Key down event:', e.key);
-          if (e.key === 'Enter') {
+          console.log("Key down event:", e.key);
+          if (e.key === "Enter") {
             handleInteraction();
           }
-        }}
-      >
+        }}>
         Bonjour, identifiez vous
       </button>
       <div className="flex items-center">
