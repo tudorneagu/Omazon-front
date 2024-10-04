@@ -23,6 +23,8 @@ import PrivateRoute from "./components/PrivateRoute";
 function App() {
   const { modals } = useContext(ModalContext);
   const { loged } = useContext(AuthContext);
+  console.log(loged);
+  console.log(modals);
   return (
     <div
       className="flex flex-col justify-between
