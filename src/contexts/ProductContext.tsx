@@ -19,7 +19,18 @@ interface ProductContextType {
   searchInput: React.RefObject<HTMLInputElement>;
 }
 
-const ProductContext = createContext<ProductContextType>();
+const defaultProductContextValue: ProductContextType = {
+  products: [],
+  categories: [],
+  tags: [],
+  searchQuery: "",
+  setSearchQuery: () => {},
+  searchInput: { current: null },
+};
+
+const ProductContext = createContext<ProductContextType>(
+  defaultProductContextValue
+);
 
 function ProductProvider({ children }: { children: React.ReactNode }) {
   const [products, setProducts] = useState<IProduct[]>([]);

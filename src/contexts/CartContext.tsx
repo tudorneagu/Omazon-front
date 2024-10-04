@@ -13,7 +13,17 @@ export type CartContextType = {
   error: string;
 };
 
-const CartContext = createContext<CartContextType>();
+const defaultCartContextValue: CartContextType = {
+  cart: [],
+  updateQuantityProduct: () => {},
+  handleAdd: () => {},
+  handleRemove: () => {},
+  addUserProduct: async () => {},
+  success: "",
+  error: "",
+};
+
+const CartContext = createContext<CartContextType>(defaultCartContextValue);
 
 function CartProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState("");

@@ -7,8 +7,13 @@ type UserContextType = {
   products: IProduct[];
   handleRemoveUserProduct: (productId: number) => Promise<void>;
 };
+const defaultUserContextValue: UserContextType = {
+  userProducts: [],
+  products: [],
+  handleRemoveUserProduct: async () => {},
+};
 
-const UserContext = createContext<UserContextType>();
+const UserContext = createContext<UserContextType>(defaultUserContextValue);
 
 interface UserProviderProps {
   children: React.ReactNode;

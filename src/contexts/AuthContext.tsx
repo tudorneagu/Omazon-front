@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../services/authService";
 import cartService from "../services/cartService";
@@ -18,9 +18,30 @@ export type AuthContextType = {
   success: string;
   addUserProduct: (newProductData: NewProductData) => Promise<void>;
   focusEmailInput: () => void;
+  closeModal: (modalName: string) => void;
+  openModal: (modalName: string) => void;
+  activeModal: string | null;
+  setActiveModal: (modal: string | null) => void;
 };
 
-const AuthContext = createContext<AuthContextType>();
+const defaultAuthContextValue: AuthContextType = {
+  registerUser: async () => undefined,
+  loginUser: async () => {},
+  logoutUser: async () => {},
+  loginForm: true,
+  loged: false,
+  authData: [],
+  error: "",
+  success: "",
+  addUserProduct: async () => {},
+  focusEmailInput: () => {},
+  closeModal: () => {},
+  openModal: () => {},
+  activeModal: null,
+  setActiveModal: () => {},
+};
+
+const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loginForm, setLoginForm] = useState(true);
@@ -28,6 +49,20 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [authData, setAuthData] = useState<AuthData[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const [activeModal, setActiveModal] = useState<string | null>(null);
+
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
+
+  const closeModal = (modalName: string) => {
+    if (activeModal === modalName) {
+      setActiveModal(null);
+    }
+  };
+
+  const openModal = (modalName: string) => {
+    setActiveModal(modalName);
+  };
 
   const navigate = useNavigate();
 
@@ -100,9 +135,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setError("");
     try {
       const userData = await authService.login(email, password);
-      console.log("User data received:", userData);
       setAuthData(userData);
-      console.log(userData);
       localStorage.setItem("authData", JSON.stringify(userData));
 
       setLoginForm(false);
@@ -175,7 +208,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const focusEmailInput = () => {};
+  const focusEmailInput = () => {
+    if (emailInputRef.current) {
+      emailInputRef.current.focus();
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -190,9 +227,14 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         success,
         addUserProduct,
         focusEmailInput,
+        closeModal,
+        openModal,
+        activeModal,
+        setActiveModal,
       }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
 export { AuthProvider, AuthContext };

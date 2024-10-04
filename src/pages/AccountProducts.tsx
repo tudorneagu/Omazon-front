@@ -3,10 +3,11 @@ import UserProductCard from "../components/ui/Cards/UserProductCard";
 import type { IProduct } from "../@types/index.types";
 import Button from "../components/ui/Buttons/Button";
 import { UserContext } from "../contexts/UserContext";
-import { ModalContext } from "../contexts/ModalContext";
+
+import { AuthContext } from "../contexts/AuthContext";
 
 function AccountProducts() {
-  const { openModal } = useContext(ModalContext);
+  const { openModal } = useContext(AuthContext);
   const { products } = useContext(UserContext);
   console.log(products);
 
