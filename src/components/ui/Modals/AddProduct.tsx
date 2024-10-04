@@ -61,9 +61,7 @@ function AddProduct() {
   return (
     <div
       className="fixed top-0 left-0 flex justify-center items-center bg-black/70 z-20 w-full h-full"
-      onClick={() => closeModal("addProduct")}
-      onKeyUp={(e) => e.key === "Enter" && closeModal("addProduct")} // Added keyboard event
-    >
+      onClick={() => closeModal("addProduct")}>
       {!user ? (
         <div className="flex max-w-2xl bg-white w-full p-10  justify-between rounded-lg items-center ">
           <p className="text-m-regular">
@@ -93,14 +91,8 @@ function AddProduct() {
       ) : (
         <div
           className="max-w-2xl bg-white w-full rounded-lg "
-          onClick={(e) => {
-            e.preventDefault();
-          }}
-          onKeyUp={(e) => {
-            if (e.key === "Enter" && e instanceof KeyboardEvent) {
-              e.preventDefault();
-            }
-          }}>
+          onClick={(e) => e.stopPropagation()} // Prevent bubbling to the parent
+        >
           <header className="bg-main-low flex items-center rounded-t-lg border-b-2 border-main-medium/40 justify-between py-4 px-6 ">
             <h1 className="text-lg font-bold">Ajouter un produit</h1>
             <img
