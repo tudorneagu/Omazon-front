@@ -13,9 +13,11 @@ export interface AuthData {
   password: string;
   account_type: string;
   user: {
-    id: number;
     firstname: string;
     lastname: string;
+    email: string;
+    id: number;
+    account_type: string;
   };
 }
 

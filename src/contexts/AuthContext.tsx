@@ -13,7 +13,15 @@ export type AuthContextType = {
   logoutUser: () => Promise<void>;
   loginForm: boolean;
   loged: boolean;
-  authData: AuthData[];
+  authData: {
+    user: {
+      firstname: string;
+      lastname: string;
+      email: string;
+      id: number;
+      account_type: string;
+    };
+  } | null;
   error?: string;
   success: string;
   addUserProduct: (newProductData: NewProductData) => Promise<void>;
@@ -30,7 +38,7 @@ const defaultAuthContextValue: AuthContextType = {
   logoutUser: async () => {},
   loginForm: true,
   loged: false,
-  authData: [],
+  authData: null,
   error: "",
   success: "",
   addUserProduct: async () => {},
@@ -46,7 +54,7 @@ const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loginForm, setLoginForm] = useState(true);
   const [loged, setLoged] = useState(false);
-  const [authData, setAuthData] = useState<AuthData[]>([]);
+  const [authData, setAuthData] = useState<AuthData | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -77,7 +85,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
       } catch (error) {
         console.log("Authentication check failed:", error);
-        setAuthData([]);
+        setAuthData(null);
         setLoged(false);
         localStorage.removeItem("authData");
       }
@@ -150,7 +158,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setError("");
     try {
       await authService.logout();
-      setAuthData([]);
+      setAuthData(null);
       localStorage.removeItem("authData");
       setLoged(false);
       navigate("/");

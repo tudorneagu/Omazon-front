@@ -18,8 +18,6 @@ function LoginForm() {
     navigate("/accountDetails");
   };
 
-  const { firstname, lastname } = authData[0].user;
-
   return (
     <div
       className="fixed inset-0 z-50 "
@@ -45,7 +43,7 @@ function LoginForm() {
             </div>
             <div>
               <h4 className="text-m-medium text-main-highest">
-                {firstname} {lastname}
+                {authData?.user.firstname} {authData?.user.lastname}
               </h4>
               <p className="text-s-regular text-info-low">
                 Titulaire du compte
