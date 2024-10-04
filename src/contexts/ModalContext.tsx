@@ -8,17 +8,15 @@ import {
 } from "react";
 import type { ModalsState } from "../@types/index.types";
 
-
 export type ModalContextType = {
   closeModal: (modalName: string) => void;
   openModal: (modalName: string) => void;
   stopPropagation: (event: React.MouseEvent<HTMLDivElement>) => void;
   modals: ModalsState;
   emailRef: React.RefObject<HTMLInputElement>;
-  
 };
 
-const ModalContext = createContext<ModalContextType>()
+const ModalContext = createContext<ModalContextType>();
 
 function ModalProvider({ children }: { children: ReactNode }) {
   const [modals, setModals] = useState<ModalsState>({});

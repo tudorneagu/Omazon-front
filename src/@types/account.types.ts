@@ -14,7 +14,8 @@ export interface AuthData {
   account_type: string;
   user: {
     id: number;
-
+    firstname: string;
+    lastname: string;
   };
 }
 

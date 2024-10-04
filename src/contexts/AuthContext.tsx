@@ -6,23 +6,26 @@ import type { NewProductData, RegisterFormData } from "../@types/cart.types";
 import type { AuthData } from "../@types/account.types";
 
 export type AuthContextType = {
-    registerUser: (formData: RegisterFormData) => Promise<{ field: string; } | undefined>;
-    loginUser: (email: string, password: string) => Promise<void>;
-    logoutUser: () => Promise<void>;
-    loged: boolean;
-    authData: AuthData[];
-    error?: string; 
-    success: string;
-    addUserProduct: (newProductData: NewProductData) => Promise<void>;
-    focusEmailInput: () => void;
-} | null;
+  registerUser: (
+    formData: RegisterFormData
+  ) => Promise<{ field: string } | undefined>;
+  loginUser: (email: string, password: string) => Promise<void>;
+  logoutUser: () => Promise<void>;
+  loginForm: boolean;
+  loged: boolean;
+  authData: AuthData[];
+  error?: string;
+  success: string;
+  addUserProduct: (newProductData: NewProductData) => Promise<void>;
+  focusEmailInput: () => void;
+};
 
-const AuthContext = createContext<AuthContextType>(); 
+const AuthContext = createContext<AuthContextType>();
 
-const AuthProvider = ({ children }) => { 
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loginForm, setLoginForm] = useState(true);
   const [loged, setLoged] = useState(false);
-  const [authData, setAuthData] = useState<AuthData[]>([]); 
+  const [authData, setAuthData] = useState<AuthData[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -83,7 +86,10 @@ const AuthProvider = ({ children }) => {
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError("An unexpected error occurred.");
-      } else if (error && (error as { response?: { status?: number } }).response?.status === 400) {
+      } else if (
+        error &&
+        (error as { response?: { status?: number } }).response?.status === 400
+      ) {
         setError("Un compte avec cet email existe déjà..");
         return { field: "email" };
       }
@@ -111,7 +117,7 @@ const AuthProvider = ({ children }) => {
     setError("");
     try {
       await authService.logout();
-      setAuthData([]); 
+      setAuthData([]);
       localStorage.removeItem("authData");
       setLoged(false);
       navigate("/");
@@ -159,7 +165,7 @@ const AuthProvider = ({ children }) => {
         description,
         price,
         category_id,
-        tag_id: tag_id ?? 0, 
+        tag_id: tag_id ?? 0,
         user_id,
         inStock,
       });
@@ -169,7 +175,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const focusEmailInput = () => { };
+  const focusEmailInput = () => {};
 
   return (
     <AuthContext.Provider
@@ -177,6 +183,7 @@ const AuthProvider = ({ children }) => {
         registerUser,
         loginUser,
         logoutUser,
+        loginForm,
         loged,
         authData,
         error,
@@ -187,6 +194,5 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-
-}
+};
 export { AuthProvider, AuthContext };

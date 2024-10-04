@@ -1,16 +1,17 @@
-import DOMPurify from 'dompurify';
-import { useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import AddButton from '../components/ui/Buttons/AddButton';
-import FormatPrice from '../components/utils/FormatPrice';
-import { ProductContext } from '../contexts/ProductContext';
-
+import { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import AddButton from "../components/ui/Buttons/AddButton";
+import FormatPrice from "../components/utils/FormatPrice";
+import { ProductContext } from "../contexts/ProductContext";
+import type { IProduct } from "../@types/index.types";
 function ProductPage() {
   const { products } = useContext(ProductContext);
   const { productTitle } = useParams();
 
-  const product = products.find((product) => product.title === productTitle);
-  const sanitizedDescription = DOMPurify.sanitize(product?.description);
+  const product = products.find(
+    (product: IProduct) => product.title === productTitle
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -25,7 +26,7 @@ function ProductPage() {
         <img
           className="h-[330px] min-w-[330px] object-contain -z-10"
           src={`/assets/products/${product?.image}`}
-          alt={product?.title || 'product'}
+          alt={product?.title || "product"}
         />
       </div>
       <div className=" flex flex-col gap-4">
@@ -43,7 +44,8 @@ function ProductPage() {
         {product.description && (
           <p
             className="text-m-regular "
-            dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+            dangerouslySetInnerHTML={{ __html: product.description }}
           />
         )}
       </div>

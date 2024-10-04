@@ -1,35 +1,37 @@
-import Button from '../components/ui/Buttons/Button';
-import { useContext } from 'react';
-import { ModalContext } from '../contexts/ModalContext';
-import { AuthContext } from '../contexts/AuthContext';
-import { useState } from 'react';
-import type { AuthContextType } from '../contexts/AuthContext'; 
+import Button from "../components/ui/Buttons/Button";
+import { useContext } from "react";
+import { ModalContext } from "../contexts/ModalContext";
+import { AuthContext } from "../contexts/AuthContext";
+import { useState } from "react";
+import type { AuthContextType } from "../contexts/AuthContext";
 
 function RegisterPage() {
-  const { registerUser, error, success } = useContext<AuthContextType>(AuthContext)
+  const { registerUser, error, success } =
+    useContext<AuthContextType>(AuthContext);
   const { openModal } = useContext(ModalContext);
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    passwordConfirm: '',
-    account_type: 'private',
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    account_type: "private",
   });
-  const [errorField, setErrorField] = useState('');
+  const [errorField, setErrorField] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!registerUser) return;
     const result = await registerUser(formData);
-    if (result?.field) { 
+    if (result?.field) {
       setErrorField(result.field);
     } else {
-      setErrorField('');
+      setErrorField("");
     }
     console.log(formData);
   };
@@ -71,9 +73,9 @@ function RegisterPage() {
             </label>
             <input
               className={`border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md ${
-                errorField === 'email'
-                  ? 'border-danger-medium'
-                  : 'border-main-medium/40'
+                errorField === "email"
+                  ? "border-danger-medium"
+                  : "border-main-medium/40"
               } pl-2`}
               type="email"
               name="email"
@@ -87,9 +89,9 @@ function RegisterPage() {
             </label>
             <input
               className={`border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md ${
-                errorField === 'password'
-                  ? 'border-danger-medium'
-                  : 'border-main-medium/40'
+                errorField === "password"
+                  ? "border-danger-medium"
+                  : "border-main-medium/40"
               } pl-2`}
               type="password"
               name="password"
@@ -100,15 +102,14 @@ function RegisterPage() {
           <div className="flex flex-col">
             <label
               htmlFor="passwordConfirm"
-              className="text-main-medium text-s-bold"
-            >
+              className="text-main-medium text-s-bold">
               Entrez le mot de passe à nouveau
             </label>
             <input
               className={`border rounded-sm border-main-medium/40 text-s-regular focus:border-info-medium/40 focus:shadow-md ${
-                errorField === 'password'
-                  ? 'border-danger-medium'
-                  : 'border-main-medium/40'
+                errorField === "password"
+                  ? "border-danger-medium"
+                  : "border-main-medium/40"
               } pl-2`}
               type="password"
               name="passwordConfirm"
@@ -125,7 +126,7 @@ function RegisterPage() {
                 name="account_type"
                 value="private"
                 onChange={handleChange}
-              />{' '}
+              />{" "}
               Compté privé
             </label>
             <label className="text-main-medium text-s-regular">
@@ -153,10 +154,9 @@ function RegisterPage() {
         <article className="text-s-regular flex items-center gap-3 border-t pt-5">
           <p>Vous possédez déjà un compte ?</p>
           <button
-            onClick={() => openModal('login')}
+            onClick={() => openModal("login")}
             type="button"
-            className="flex items-center gap-1 text-info-high hover:text-brand-primary hover:underline"
-          >
+            className="flex items-center gap-1 text-info-high hover:text-brand-primary hover:underline">
             <p>Identifiez-vous </p>
             <img
               className="w-[6px] h-[6px]"

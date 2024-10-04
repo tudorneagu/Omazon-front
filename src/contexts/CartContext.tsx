@@ -3,7 +3,6 @@ import type { IProduct } from "../@types/index.types";
 import cartService from "../services/cartService";
 import type { NewProductData } from "../@types/cart.types";
 
-
 export type CartContextType = {
   cart: IProduct[];
   updateQuantityProduct: (id: string, quantity: number) => void;
@@ -14,15 +13,7 @@ export type CartContextType = {
   error: string;
 };
 
-const CartContext = createContext<CartContextType>({
-  cart: [],
-  updateQuantityProduct: () => {},
-  handleAdd: () => {},
-  handleRemove: () => {},
-  addUserProduct: async () => {},
-  success: "",
-  error: "",
-});
+const CartContext = createContext<CartContextType>();
 
 function CartProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState("");
@@ -39,7 +30,7 @@ function CartProvider({ children }: { children: React.ReactNode }) {
   const updateQuantityProduct = (id: string, quantity: number) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
-        item.id === Number(id) ? { ...item, quantity } : item
+        Number(item.id) === Number(id) ? { ...item, quantity } : item
       )
     );
   };
@@ -121,7 +112,7 @@ function CartProvider({ children }: { children: React.ReactNode }) {
         title,
         url,
         price,
-		description,
+        description,
         category_id,
         tag_id: tag_id || 0,
         user_id,

@@ -12,7 +12,7 @@ export interface ITag {
 }
 
 export interface IProduct {
-  id: number;
+  id: string;
   title: string;
   price: number;
   image: string;
@@ -37,5 +37,3 @@ export type ModalContextType = {
   setActiveModal: (modal: string | null) => void;
   onClose: () => void;
 };
-
-

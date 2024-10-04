@@ -1,4 +1,4 @@
-import { createContext, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, createContext } from "react";
 
 import type { ICategory, IProduct, ITag } from "../@types/index.types";
 import productService from "../services/productService";
@@ -10,12 +10,12 @@ export interface Category {
   title: string;
 }
 
-export interface ProductContextType {
-  categories: Category[];
+interface ProductContextType {
   products: IProduct[];
+  categories: ICategory[];
   tags: ITag[];
   searchQuery: string | null;
-  setSearchQuery: (query: string | null) => void;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string | null>>;
   searchInput: React.RefObject<HTMLInputElement>;
 }
 
