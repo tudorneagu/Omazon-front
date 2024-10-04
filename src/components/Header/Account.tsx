@@ -1,10 +1,11 @@
 import { useContext } from "react";
+import { ModalContext } from "../../contexts/ModalContext";
 import { AuthContext } from "../../contexts/AuthContext";
 import type { AuthContextType } from "../../contexts/AuthContext";
 
 function Account() {
   const { loged, focusEmailInput } = useContext<AuthContextType>(AuthContext);
-  const { openModal } = useContext(AuthContext);
+  const { openModal } = useContext(ModalContext);
   const handleInteraction = () => {
     openModal("login");
     focusEmailInput();
