@@ -130,7 +130,7 @@ function AddProduct() {
             </div>
             <div className="flex flex-col ">
               <label htmlFor="description" className="text-main-medium">
-                Desciption du produit
+                Description du produit
               </label>
               <textarea
                 className="border-2 rounded-md border-main-medium/40 focus:border-info-medium focus:shadow-md invalid:border-danger-medium pl-2"
